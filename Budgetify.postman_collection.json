@@ -1,0 +1,476 @@
+{
+	"info": {
+		"_postman_id": "aa5b5a85-efcf-4813-9c25-513e6ff7eb9d",
+		"name": "Budgetify",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "EndPointsForAccounts",
+			"item": [
+				{
+					"name": "GetAllAccounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/accounts/randomID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"accounts",
+								"randomID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetSpecificAccount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/accounts/randomID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"accounts",
+								"randomID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateNewAccount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"info about the account\": \"bla bla bla\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAccount",
+					"request": {
+						"method": "PATCH",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteSpecifiedAccount",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/accounts/randomID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"accounts",
+								"randomID"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EndPointsForAccountsCategories",
+			"item": [
+				{
+					"name": "GetAllCategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetSpecificCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/categories/categoryID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"categories",
+								"categoryID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateNewCategory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"info about the account\": \"bla bla bla\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCategory",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/categories/categoryID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"categories",
+								"categoryID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteSpecifiedCategory",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/categories/categoryID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"categories",
+								"categoryID"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EndPointsForAccountsIncomes",
+			"item": [
+				{
+					"name": "GetAllIncomes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/incomes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"incomes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetSpecificIncome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/incomes/incomeID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"incomes",
+								"incomeID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateNewIncome",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"info about the account\": \"bla bla bla\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/incomes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"incomes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateIncome",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/incomes/incomeID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"incomes",
+								"incomeID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteSpecifiedIncome",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/incomes/incomeID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"incomes",
+								"incomeID"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EndPointsForAccountsExpenses",
+			"item": [
+				{
+					"name": "GetAllExpenses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/expenses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"expenses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetSpecificExpense",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/expenses/expenseID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"expenses",
+								"expenseID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateNewExpense",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"info about the account\": \"bla bla bla\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/expenses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"expenses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateExpense",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/expenses/expenseID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"expenses",
+								"expenseID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteSpecifiedExpense",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/account/randomID/expenses/expenseID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"account",
+								"randomID",
+								"expenses",
+								"expenseID"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
