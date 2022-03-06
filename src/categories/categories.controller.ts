@@ -3,7 +3,7 @@ import { CategoriesService } from './categories.service';
 
 @Controller('account/:account/categories')
 export class CategoriesController {
-    constructor(private readonly CategoriesService: CategoriesService) {}
+    constructor(private readonly categoriesService: CategoriesService) {}
 
     @Post()
     async addCategorie(@Param('account') account){

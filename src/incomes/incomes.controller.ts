@@ -3,7 +3,7 @@ import { IncomesService } from './incomes.service';
 
 @Controller('account/:account/incomes')
 export class IncomesController {
-    constructor(private readonly IncomesService: IncomesService) {}
+    constructor(private readonly incomesService: IncomesService) {}
 
     @Post()
     async addIncome(@Param('account') account){
