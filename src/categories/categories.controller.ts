@@ -1,4 +1,5 @@
-import { Controller, Post, Get, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Request, Delete } from '@nestjs/common';
+import { CreateCategoryDto, UpdateCategoryDto } from './create-category.dto';
 import { CategoriesService } from './categories.service';
 
 @Controller('account/:account/categories')
@@ -6,27 +7,35 @@ export class CategoriesController {
     constructor(private readonly categoriesService: CategoriesService) {}
 
     @Post()
-    async addCategorie(@Param('account') account){
-        return "Used for creating new categories for the specified account";
+    async addCategory(@Body() createCategoryDto: CreateCategoryDto, @Param('account') account){
+        createCategoryDto.accountId = account;
+        const generatedID = await this.categoriesService.addCategory(createCategoryDto);
+        return generatedID;
     }
 
     @Get()
-    async getAllCategories(){
-        return "Returns all categories assiociated with the account";
+    async getAllUserCategories(@Param('account') account){
+        const categories = await this.categoriesService.getAllAccountCategories(account);
+        return categories.map((category) => ({
+            title: account.title,
+            type: account.type
+        }));
     }
 
     @Get(':id')
-    async getCategorie(@Param('account') account, @Param('id') categoryID: string){
-        return "Return specific category using given id (if that category is of the connected user)"
+    async getCategorie(@Param('id') categoryId: string){
+        return this.categoriesService.getCategoryByID(categoryId);
     }
 
     @Patch(':id')
-    async updateCategorie(@Param('account') account, @Param('id') categoryID: string){
-        return "Updates specified category (if that category is of the connected user)";
+    async updateCategorie(@Param('id') categoryId: string, @Body() updateCategoryDto: UpdateCategoryDto){
+        await this.categoriesService.updateCategory(categoryId, updateCategoryDto);
+        return 'Information update about the category was successful.';
     }
 
     @Delete(':id')
-    async deleteCategorie(@Param('account') account, @Param('id') categoryID: string){
-        return "Deletes specified category from the account (if that category is of the connected user)";
+    async deleteCategorie(@Param('id') categoryID: string){
+        await this.categoriesService.deleteCategory(categoryID);
+        return 'Category deletion was successful.';
     }
 }

@@ -1,4 +1,5 @@
-import { Controller, Post, Get, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Request, Delete } from '@nestjs/common';
+import { CreateAccountDto, UpdateAccountDto } from './create-account.dto';
 import { AccountsService } from './accounts.service';
 
 @Controller('accounts')
@@ -6,28 +7,39 @@ export class AccountsController {
     constructor(private readonly accountsService: AccountsService) {}
 
     @Post()
-    async addAccount(){
-        return "Used for creating new accounts";
+    async addAccount(@Body() createAccountDto: CreateAccountDto, @Request() req) {
+        createAccountDto.userId = req.user.id;
+        const createdAccount = await this.accountsService.addAccount(createAccountDto);
+        return createdAccount;
     }
 
     @Get()
-    async getAllAccounts(){
-        return "Returns all accounts assiociated with the user";
+    async getAllUserAccounts(@Request() req){
+        const accounts = await this.accountsService.getAllUserAccounts(req.user.id);
+        return accounts.map((account) => ({
+            id: account.id,
+            name: account.name,
+            amount: account.amount,
+            currency: account.currency,
+            description: account.description
+        }));
     }
 
     @Get(':id')
     async getAccount(@Param('id') accountID: string){
-        return "Return specific account using given id (if that account is of the connected user)"
+        return this.accountsService.getAccountByID(accountID);
     }
 
     @Patch(':id')
-    async updateAccount(@Param('id') accountID: string){
-        return "Updates specified account (if that account is of the connected user)";
+    async updateAccount(
+        @Param('id') accountID: string,
+        @Body() updateAccountDto: UpdateAccountDto) {
+        return await this.accountsService.updateAccount(accountID, updateAccountDto);
     }
 
     @Delete(':id')
-    async deleteAccount(@Param('id') accountID: string){
-        return "Deletes specified account (if that account is of the connected user)";
+    async deleteAccount(@Param('id') accountID: string) {
+        return await this.accountsService.deleteAccount(accountID);
     }
 
 }

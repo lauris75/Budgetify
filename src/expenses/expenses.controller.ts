@@ -1,4 +1,5 @@
-import { Controller, Post, Get, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Request, Delete } from '@nestjs/common';
+import { CreateExpenseDto, UpdateExpenseDto } from './create-expense.dto';
 import { ExpensesService } from './expenses.service';
 
 @Controller('account/:account/expenses')
@@ -6,27 +7,39 @@ export class ExpensesController {
     constructor(private readonly expensesService: ExpensesService) {}
 
     @Post()
-    async addExpense(@Param('account') account){
-        return "Used for creating new expenses for the specified account";
+    async addExpense(@Body() createExpenseDto: CreateExpenseDto, @Param('account') account){
+        createExpenseDto.accountId = account;
+        const generatedId = await this.expensesService.addExpense(createExpenseDto)
+        return generatedId;
     }
 
     @Get()
-    async getAllExpenses(){
-        return "Returns all expenses assiociated with the account";
+    async getAllAccountExpenses(@Param('account') account){
+        const expenses= await this.expensesService.getAllAccountExpenses(account);
+        return expenses.map((expense) => ({
+            id: expense.id,
+            title: expense.title,
+            categoryId: expense.categoryId,
+            description: expense.description,
+            amount: expense.amount,
+            date: expense.date
+        }))
     }
 
     @Get(':id')
-    async getExpense(@Param('account') account, @Param('id') expenseID: string){
-        return "Return specific expense using given id (if that expense is of the connected user)"
+    async getExpense(@Param('id') expenseId: string){
+        return this.expensesService.getExpenseByID(expenseId);
     }
 
     @Patch(':id')
-    async updateExpense(@Param('account') account, @Param('id') expenseID: string){
-        return "Updates specified expense (if that expense is of the connected user)";
+    async updateExpense(@Param('id') expenseId: string, @Body() updateExpenseDto: UpdateExpenseDto): Promise<string>{
+        await this.expensesService.updateExpense(expenseId, updateExpenseDto)
+        return "Information update about the expense was successful.";
     }
 
     @Delete(':id')
-    async deleteExpense(@Param('account') account, @Param('id') expenseID: string){
-        return "Deletes specified expense from the account (if that expense is of the connected user)";
+    async deleteExpense(@Param('id') expenseId: string){
+        await this.expensesService.deleteExpense(expenseId);
+        return 'Expense deletion successful.';
     }
 }

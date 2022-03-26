@@ -9,9 +9,11 @@ import { ExpensesModule } from './expenses/expenses.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [AccountsModule, CategoriesModule, IncomesModule, ExpensesModule, UsersModule, AuthModule],
+  imports: [AccountsModule, CategoriesModule, IncomesModule, ExpensesModule, UsersModule, AuthModule,
+  MongooseModule.forRoot('mongodb+srv://lauris:nesakysiu@cluster0.pq913.mongodb.net/nodejsTutorial?retryWrites=true&w=majority'),],
   controllers: [AppController],
   providers: [{provide: APP_GUARD, useClass: JwtAuthGuard}, AppService],
 })
