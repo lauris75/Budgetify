@@ -1,4 +1,5 @@
-import { Controller, Post, Get, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Request, Delete } from '@nestjs/common';
+import { CreateIncomeDto, UpdateIncomeDto } from './create-income.dto';
 import { IncomesService } from './incomes.service';
 
 @Controller('account/:account/incomes')
@@ -6,27 +7,39 @@ export class IncomesController {
     constructor(private readonly incomesService: IncomesService) {}
 
     @Post()
-    async addIncome(@Param('account') account){
-        return "Used for creating new incomes for the specified account";
+    async addIncome(@Body() createIncomeDto: CreateIncomeDto, @Param('account') account){
+        createIncomeDto.accountId = account;
+        const generatedId = await this.incomesService.addIncome(createIncomeDto)
+        return generatedId;
     }
 
     @Get()
-    async getAllIncomes(){
-        return "Returns all incomes assiociated with the account";
+    async getAllIncomes(@Param('account') account){
+        const incomes= await this.incomesService.getAllAccountIncomes(account);
+        return incomes.map((income) => ({
+            id: income.id,
+            title: income.title,
+            categoryId: income.categoryId,
+            description: income.description,
+            amount: income.amount,
+            date: income.date
+        }))
     }
 
     @Get(':id')
-    async getIncome(@Param('account') account, @Param('id') incomeID: string){
-        return "Return specific income using given id (if that income is of the connected user)"
+    async getIncome(@Param('id') incomeId: string){
+        return this.incomesService.getIncomeByID(incomeId);
     }
 
     @Patch(':id')
-    async updateIncome(@Param('account') account, @Param('id') incomeID: string){
-        return "Updates specified income (if that income is of the connected user)";
+    async updateIncome(@Param('id') incomeId: string, @Body() updateIncomeDto: UpdateIncomeDto){
+        await this.incomesService.updateIncome(incomeId, updateIncomeDto)
+        return "Information update about the income was successful.";
     }
 
     @Delete(':id')
-    async deleteIncome(@Param('account') account, @Param('id') incomeID: string){
-        return "Deletes specified income from the account (if that category is of the connected user)";
+    async deleteIncome(@Param('id') incomeId: string){
+        await this.incomesService.deleteIncome(incomeId);
+        return 'Income deletion successful.';
     }
 }

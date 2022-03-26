@@ -1,12 +1,22 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Controller, Body, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth/auth.service';
+import { UsersService } from './users/users.service';
+import { CreateUserDto } from './users/create-user.dto';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { Public } from './auth/auth.metadata';
 
 @Controller()
 export class AppController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService, private usersService: UsersService) {}
+
+
+  @Public()
+  @Post('register')
+  register(@Body() createUserDto: CreateUserDto) {
+    const generatedId = this.usersService.createUser(createUserDto);
+    return generatedId;
+  }
 
   @Public()
   @UseGuards(LocalAuthGuard)
