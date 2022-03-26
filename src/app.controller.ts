@@ -10,12 +10,11 @@ import { Public } from './auth/auth.metadata';
 export class AppController {
   constructor(private readonly authService: AuthService, private usersService: UsersService) {}
 
-
   @Public()
   @Post('register')
   register(@Body() createUserDto: CreateUserDto) {
-    const generatedId = this.usersService.createUser(createUserDto);
-    return generatedId;
+    const createdUser = this.usersService.createUser(createUserDto);
+    return createdUser;
   }
 
   @Public()

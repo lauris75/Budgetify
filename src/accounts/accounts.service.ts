@@ -12,7 +12,7 @@ export class AccountsService {
     async addAccount(createAccountDto: CreateAccountDto) {
         const newAccount = new this.accountModel(createAccountDto);
         const result = await newAccount.save();
-        return result.id;
+        return result;
     }
 
     async getAllUserAccounts(userId: string) {
@@ -31,24 +31,28 @@ export class AccountsService {
         if(updateAccountDto.name){
             updatedAccount.name = updateAccountDto.name;
         }
-        if(updateAccountDto.amount){
+        if(updateAccountDto.amount && updateAccountDto.currency){
             updatedAccount.amount = updateAccountDto.amount;
-        }
-        if(updateAccountDto.currency){
             updatedAccount.currency = updateAccountDto.currency;
+        }
+            else if(updateAccountDto.amount){
+            updatedAccount.amount = updateAccountDto.amount;
         }
         if(updateAccountDto.description){
             updatedAccount.description = updateAccountDto.description;
         }
         updatedAccount.save();
+        return updatedAccount;
     }
 
     async deleteAccount(accountID: string) {
+        let result: Account;
         try{
             const result = await this.accountModel.deleteOne({_id: accountID}).exec();
         } catch (error){
             throw new NotFoundException("Account with such ID wasn't found.");
         }
+        return result;
     }
 
     private async findAccount(accountID: string): Promise<Account> {

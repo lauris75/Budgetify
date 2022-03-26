@@ -9,8 +9,8 @@ export class AccountsController {
     @Post()
     async addAccount(@Body() createAccountDto: CreateAccountDto, @Request() req) {
         createAccountDto.userId = req.user.id;
-        const generatedID = await this.accountsService.addAccount(createAccountDto);
-        return generatedID;
+        const createdAccount = await this.accountsService.addAccount(createAccountDto);
+        return createdAccount;
     }
 
     @Get()
@@ -33,15 +33,13 @@ export class AccountsController {
     @Patch(':id')
     async updateAccount(
         @Param('id') accountID: string,
-        @Body() updateAccountDto: UpdateAccountDto): Promise<string> {
-        await this.accountsService.updateAccount(accountID, updateAccountDto);
-        return 'Information update about the account was successful.';
+        @Body() updateAccountDto: UpdateAccountDto) {
+        return await this.accountsService.updateAccount(accountID, updateAccountDto);
     }
 
     @Delete(':id')
-    async deleteAccount(@Param('id') accountID: string): Promise<string>{
-        await this.accountsService.deleteAccount(accountID);
-        return 'Account deletion successful.';
+    async deleteAccount(@Param('id') accountID: string) {
+        return await this.accountsService.deleteAccount(accountID);
     }
 
 }

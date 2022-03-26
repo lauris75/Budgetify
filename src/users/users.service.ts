@@ -12,7 +12,7 @@ export class UsersService {
     async createUser(createUserDto: CreateUserDto) {
         const newUser = new this.userModel(createUserDto);
         const result = await newUser.save();
-        return result.id;
+        return result;
     }
 
     async findOne(email: string): Promise<User | undefined> {
