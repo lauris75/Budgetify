@@ -8,6 +8,7 @@ export class AccountsController {
 
     @Post()
     async addAccount(@Body() createAccountDto: CreateAccountDto, @Request() req) {
+        console.log(req.user);
         createAccountDto.userId = req.user.id;
         const createdAccount = await this.accountsService.addAccount(createAccountDto);
         return createdAccount;

@@ -17,15 +17,17 @@ export class AppController {
     return createdUser;
   }
 
-  @Public()
   @UseGuards(LocalAuthGuard)
+  @Public()
   @Post('login')
   login(@Request() req): any{
+    console.log(req.user._doc._id);
     return this.authService.login(req.user);
   }
 
   @Get('protected')
   getHello(@Request() req): string {
+    console.log(req.user);
     return req.user;
   }
 }

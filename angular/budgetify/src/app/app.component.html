@@ -1,2 +1,4 @@
-<h1>First Budgetify page!!</h1>
-<p>Not finished...</p>
+<button routerLink="/account" *ngIf="isLoggedIn">Accounts</button>
+<button *ngIf="isLoggedIn" (click)="healthCheck()">Health check</button>
+<button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+<router-outlet></router-outlet>
